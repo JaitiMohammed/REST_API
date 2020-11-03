@@ -1,32 +1,29 @@
 const express = require("express");
-const routes = require("./routes/api");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// set up expresse app
+const bodyParser = require("body-parser");
+const routes = require("./routes/api");
+
+// set up express app
+
 const app = express();
 
-//middelware
+// middleware
 app.use(bodyParser.json());
 
-// connect to MongoDB
+// connect to MongoDb
+
 const uri =
-  "mongodb+srv://jaitiadmin:adminDB@mydatabase-egfbw.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://AdminDB:Admin@restapi.5nrfn.mongodb.net/<dbname>?retryWrites=true&w=majority";
+
 mongoose.connect(uri, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
-// error handling middlware
+// error Handling middlware
 
-/*
-app.use((err, req, res, next) => {
-  res.status(422).send({
-    error: err.message
-  });
-});*/
-
-// use routes
+// routes localhost:5000/users
 app.use(routes);
-
 // listen for requests
-app.listen(process.env.PORT || 4000, function() {
-  console.log("now listening for requests ");
+
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Now listening for requests on");
 });
